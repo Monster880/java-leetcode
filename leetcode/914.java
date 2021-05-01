@@ -1,6 +1,3 @@
-### 卡牌分组
-
-`
 class Solution {
     private int gcd(int x, int y){
         return y > 0 ? gcd(y, x%y) : x;
@@ -21,4 +18,3 @@ class Solution {
         return true;
     }
 }
-`
