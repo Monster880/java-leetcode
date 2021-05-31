@@ -9,7 +9,7 @@ class MyQueue {
     
     /** Push element x to the back of queue. */
     public void push(int x) {
-        Stack<Integer> temp = new Stack();
+        Stack<Integer> temp = new Stack<>();
         for(; !s.isEmpty(); temp.push(s.pop()));
         s.push(x);
         for(; !temp.isEmpty(); s.push(temp.pop()));
