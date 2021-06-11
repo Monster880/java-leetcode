@@ -109,7 +109,7 @@ import java.util.Arrays;
 public class Solution {
 
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
-        int maxPrice = 1_000_000_000;
+        int maxPrice = 1000000000;
 
         int[][] dp = new int[n][K + 1];
         // 初始化 1：由于找最短路径，因此初始化的时候赋值成为一个不可能的较大的值
