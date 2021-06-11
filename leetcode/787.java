@@ -108,7 +108,7 @@ import java.util.Arrays;
 
 public class Solution {
 
-    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+    public int findCheapestPrice(int n, int[][] edges, int src, int dst, int K) {
         int maxPrice = 1000000000;
 
         int[][] dp = new int[n][K + 1];
@@ -122,20 +122,20 @@ public class Solution {
         }
 
         // 第 1 轮松弛操作，只需要对从 src 出发的边进行松弛操作
-        for (int[] flight : flights) {
-            if (flight[0] == src) {
-                dp[flight[1]][0] = flight[2];
+        for (int[] edge : edges) {
+            if (edge[0] == src) {
+                dp[edge[1]][0] = edge[2];
             }
         }
 
         // 第 2 轮到第 K + 1 轮松弛操作，最后一轮松弛操作是为了检测是否可达
         for (int i = 1; i <= K; i++) {
-            for (int[] flight : flights) {
-                int from = flight[0];
-                int to = flight[1];
+            for (int[] edge : edges) {
+                int from = edge[0];
+                int to = edge[1];
                 // 每一次松弛操作的结果是互相独立的，因此只有在上一轮（第 i - 1 轮）得到单源最短路径的顶点，才需要执行松弛操作
                 if (dp[from][i - 1] != maxPrice) {
-                    dp[to][i] = Math.min(dp[from][i - 1] + flight[2], dp[to][i]);
+                    dp[to][i] = Math.min(dp[from][i - 1] + edge[2], dp[to][i]);
                 }
             }
         }
