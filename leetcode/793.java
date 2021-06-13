@@ -1,12 +1,12 @@
 class Solution {
     public int preimageSizeFZF(long k) {
-        long left = k, right = 10*k+1;
+        long left = 0, right = Long.MAX_VALUE;
         while(left < right){
             long mid = (left + right) >> 1;
             long sum = count(mid);
             if(sum == k) return 5;
             else if(sum < k) left = mid + 1;
-            else right = mid;
+            else right = mid-1;
         }
         return 0;
     }
