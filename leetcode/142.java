@@ -30,3 +30,16 @@ public class Solution {
         return t1;
     }
 }
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        Set<ListNode> set = new HashSet<>();
+        for(; head != null; head = head.next){
+            if(set.contains(head)){
+                return head;
+            }
+            set.add(head);
+        }
+        return null;
+    }
+}
