@@ -18,13 +18,13 @@ class Solution {
         int n = 0;
         Map<Node, Integer> ind = new HashMap<>();
         for(Node temp = head; temp != null; temp = temp.next){
-            ind.put(temp,n++);
+            ind.put(temp, n++);
         }
         if(n == 0){
             return null;
         }
         Node[] r = new Node[n];
-        for(int i=0; i<n; i++){
+        for(int i=0;i <n;i++){
             r[i] = new Node(0);
         }
         for(n=0; head != null; head = head.next, ++n){
