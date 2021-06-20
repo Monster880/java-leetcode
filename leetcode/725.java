@@ -16,14 +16,15 @@ class Solution {
             cur = cur.next;
             n++;
         }
-        int width = n / k, rem = n % k;
+        int width = n / k,  rem = n % k;
         ListNode[] ans = new ListNode[k];
         cur = head;
 
         for(int i=0; i<k;i++){
-            ListNode root = new ListNode(0), write = root;
+            ListNode root = new ListNode(0), temp = root;
             for(int j=0; j<width+(i<rem ? 1 : 0); j++){
-                write = write.next = new ListNode(cur.val);
+                temp.next = new ListNode(cur.val);
+                temp = temp.next;
                 if(cur != null) cur = cur.next;
             }
             ans[i] = root.next;
