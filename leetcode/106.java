@@ -14,32 +14,23 @@
  * }
  */
 class Solution {
-    int post_idx;
-    int[] postorder;
-    int[] inorder;
-    Map<Integer, Integer> idx_map = new HashMap<Integer, Integer>();
 
-    public TreeNode helper(int in_left, int in_right) {
-        if(in_left > in_right){
+    public TreeNode helper(int[] inorder, int inStart, int inEnd,int[] postorder, int postStart, int postEnd) {
+        if(inStart > inEnd || postStart > postEnd){
             return null;
         }
-        int root_val = postorder[post_idx];
-        TreeNode root = new TreeNode(root_val);
-        int index = idx_map.get(root_val);
-        post_idx--;
-        root.right = helper(index+1, in_right);
-        root.left = helper(in_left, index - 1);
+        TreeNode root = new TreeNode(postorder[postEnd]);
+        for(int i=inStart; i <= inEnd; i++){
+            if(inorder[i] == postorder[postEnd]){
+                root.left = helper(inorder, inStart, i-1, postorder, postStart, postStart+i-1-inStart);
+                root.right = helper(inorder, i+1, inEnd, postorder, postStart+i-inStart, postEnd-1);
+            }
+        }
         return root;        
     }
 
     public TreeNode buildTree(int[] inorder, int[] postorder){
-        this.postorder = postorder;
-        this.inorder = inorder;
-        post_idx = postorder.length - 1;
-        int idx = 0;
-        for(Integer val : inorder){
-            idx_map.put(val, idx++);
-        }
-        return helper(0, inorder.length-1);
+        TreeNode root = helper(inorder, 0, inorder.length-1, postorder, 0, postorder.length-1);
+        return root;
     }
 }
