@@ -9,10 +9,6 @@ public class Main{
         showList(offset,n,l1,l2);
     }
     public static void showList(int offset,int n,int l1,int l2){
-        /* 分情况讨论：展示的长度始终为n，范围在offset——offset+n之间，
-         * 对该范围进行分情况讨论。难点在于将题中描述提取出自己需要的信息，
-         * 并进行转化。
-         */
         if(offset <= l1 + l2){
             // 表明起点在L2表中
             if (offset >= l1){
