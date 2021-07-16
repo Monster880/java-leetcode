@@ -9,7 +9,6 @@ class Solution {
         }
         queue.add(beginWord);
         visited.add(beginWord);
-        int wordLen = beginWord.length();
         int res = 1;
         while(!queue.isEmpty()) {
             int len = queue.size();
