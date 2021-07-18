@@ -5,7 +5,6 @@ class Solution {
         int n = board[0].length;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                // 从边缘o开始搜索
                 boolean isEdge = i == 0 || j == 0 || i == m - 1 || j == n - 1;
                 if (isEdge && board[i][j] == 'O') {
                     dfs(board, i, j);
@@ -27,13 +26,12 @@ class Solution {
 
     public void dfs(char[][] board, int i, int j) {
         if (i < 0 || j < 0 || i >= board.length  || j >= board[0].length || board[i][j] == 'X' || board[i][j] == '#') {
-            // board[i][j] == '#' 说明已经搜索过了. 
             return;
         }
         board[i][j] = '#';
-        dfs(board, i - 1, j); // 上
-        dfs(board, i + 1, j); // 下
-        dfs(board, i, j - 1); // 左
-        dfs(board, i, j + 1); // 右
+        dfs(board, i - 1, j);
+        dfs(board, i + 1, j);
+        dfs(board, i, j - 1);
+        dfs(board, i, j + 1);
     }
 }
