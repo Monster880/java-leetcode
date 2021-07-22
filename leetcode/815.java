@@ -6,41 +6,41 @@ class Solution {
 
         int n = routes.length;
         boolean[][] edge = new boolean[n][n];
-        Map<Integer, List<Integer>> rec = new HashMap<Integer, List<Integer>>();
+        Map<Integer, List<Integer>> ans = new HashMap<Integer, List<Integer>>();
         for (int i = 0; i < n; i++) {
             for (int site : routes[i]) {
-                List<Integer> list = rec.getOrDefault(site, new ArrayList<Integer>());
+                List<Integer> list = ans.getOrDefault(site, new ArrayList<Integer>());
                 for (int j : list) {
                     edge[i][j] = edge[j][i] = true;
                 }
                 list.add(i);
-                rec.put(site, list);
+                ans.put(site, list);
             }
         }
 
-        int[] dis = new int[n];
-        Arrays.fill(dis, -1);
-        Queue<Integer> queque = new LinkedList<Integer>();
-        for (int bus : rec.getOrDefault(source, new ArrayList<Integer>())) {
-            dis[bus] = 1;
-            queque.offer(bus);
+        int[] dist = new int[n];
+        Arrays.fill(dist, -1);
+        Queue<Integer> queue = new LinkedList<Integer>();
+        for (int bus : ans.getOrDefault(source, new ArrayList<Integer>())) {
+            dist[bus] = 1;
+            queue.offer(bus);
         }
-        while (!queque.isEmpty()) {
-            int x = queque.poll();
+        while (!queue.isEmpty()) {
+            int x = queue.poll();
             for (int y = 0; y < n; y++) {
-                if (edge[x][y] && dis[y] == -1) {
-                    dis[y] = dis[x] + 1;
-                    queque.offer(y);
+                if (edge[x][y] && dist[y] == -1) {
+                    dist[y] = dist[x] + 1;
+                    queue.offer(y);
                 }
             }
         }
 
-        int ret = Integer.MAX_VALUE;
-        for (int bus : rec.getOrDefault(target, new ArrayList<Integer>())) {
-            if (dis[bus] != -1) {
-                ret = Math.min(ret, dis[bus]);
+        int res = Integer.MAX_VALUE;
+        for (int bus : ans.getOrDefault(target, new ArrayList<Integer>())) {
+            if (dist[bus] != -1) {
+                res = Math.min(res, dist[bus]);
             }
         }
-        return ret == Integer.MAX_VALUE ? -1 : ret;
+        return res == Integer.MAX_VALUE ? -1 : res;
     }
 }
