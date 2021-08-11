@@ -1,6 +1,6 @@
 class Solution {
     List<Integer> list = new ArrayList<Integer>();
-    List<List<Integer>> ans = new ArrayList<List<Integer>>();
+    List<List<Integer>> ans = new ArrayList<List<Integer>>(); 
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
@@ -14,7 +14,7 @@ class Solution {
             return;
         }
         dfs(false, cur+1, nums);
-        if(!choosePre && cur > 0 && nums[cur - 1] == nums[cur]){
+        if(!choosePre && cur > 0 && nums[cur-1] == nums[cur]){
             return;
         }
         list.add(nums[cur]);
