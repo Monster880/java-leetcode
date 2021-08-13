@@ -5,7 +5,10 @@ public class LRUCache {
         DLinkedNode prev;
         DLinkedNode next;
         public DLinkedNode() {}
-        public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
+        public DLinkedNode(int key, int value) {
+            this.key = key; 
+            this.value = value;
+        }
     }
 
     private Map<Integer, DLinkedNode> cache = new HashMap<Integer, DLinkedNode>();
