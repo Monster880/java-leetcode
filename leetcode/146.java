@@ -1,12 +1,12 @@
-public class LRUCache {
-    class DLinkedNode {
+class LRUCache {
+    class DLinkedNode{
         int key;
         int value;
-        DLinkedNode prev;
+        DLinkedNode pre;
         DLinkedNode next;
-        public DLinkedNode() {}
-        public DLinkedNode(int key, int value) {
-            this.key = key; 
+        public DLinkedNode(){}
+        public DLinkedNode(int key, int value){
+            this.key = key;
             this.value = value;
         }
     }
@@ -22,57 +22,63 @@ public class LRUCache {
         head = new DLinkedNode();
         tail = new DLinkedNode();
         head.next = tail;
-        tail.prev = head;
+        tail.next = head;
     }
-
+    
     public int get(int key) {
         DLinkedNode node = cache.get(key);
-        if (node == null) {
+        if(node == null){
             return -1;
         }
         moveToHead(node);
         return node.value;
     }
-
+    
     public void put(int key, int value) {
         DLinkedNode node = cache.get(key);
-        if (node == null) {
+        if(node == null){
             DLinkedNode newNode = new DLinkedNode(key, value);
             cache.put(key, newNode);
             addToHead(newNode);
             ++size;
-            if (size > capacity) {
+            if(size > capacity){
                 DLinkedNode tail = removeTail();
                 cache.remove(tail.key);
                 --size;
             }
-        }
-        else {
+        }else{
             node.value = value;
             moveToHead(node);
         }
     }
 
-    private void addToHead(DLinkedNode node) {
-        node.prev = head;
+    private void addToHead(DLinkedNode node){
+        node.pre = head;
         node.next = head.next;
-        head.next.prev = node;
+        head.next.pre = node;
         head.next = node;
     }
 
-    private void removeNode(DLinkedNode node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
+    private void removeNode(DLinkedNode node){
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
     }
 
-    private void moveToHead(DLinkedNode node) {
+    private void moveToHead(DLinkedNode node){
         removeNode(node);
         addToHead(node);
     }
 
-    private DLinkedNode removeTail() {
-        DLinkedNode res = tail.prev;
+    private DLinkedNode removeTail(){
+        DLinkedNode res = tail.pre;
         removeNode(res);
         return res;
     }
 }
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
