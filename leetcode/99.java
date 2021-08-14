@@ -5,7 +5,7 @@ class Solution {
         int[] swapped = findTwoSwapped(nums);
         recover(root, 2, swapped[0], swapped[1]);
     }
-
+    
     public void inorder(TreeNode root, List<Integer> nums) {
         if (root == null) {
             return;
