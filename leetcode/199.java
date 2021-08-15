@@ -13,10 +13,8 @@ class Solution {
             int depth = depthQueue.remove();
 
             if (node != null) {
-            	// 维护二叉树的最大深度
                 max_depth = Math.max(max_depth, depth);
 
-                // 由于每一层最后一个访问到的节点才是我们要的答案，因此不断更新对应深度的信息即可
                 rightmostValueAtDepth.put(depth, node.val);
 
                 nodeQueue.add(node.left);
