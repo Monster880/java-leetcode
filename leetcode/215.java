@@ -1,39 +1,36 @@
 class Solution {
-    Random random = new Random();
-
     public int findKthLargest(int[] nums, int k) {
-        return quickSelect(nums, 0, nums.length - 1, nums.length - k);
+        findK(nums,0,nums.length - 1,nums.length - k);
+        return nums[nums.length - k];
+    }
+    private int findK(int[] nums,int left,int right,int k){
+        int position = partition(nums,left,right);
+        if(position == k) return position;
+        return k > position ? findK(nums,position + 1,right,k) : findK(nums,left,position - 1,k);
     }
 
-    public int quickSelect(int[] a, int l, int r, int index) {
-        int q = randomPartition(a, l, r);
-        if (q == index) {
-            return a[q];
-        } else {
-            return q < index ? quickSelect(a, q + 1, r, index) : quickSelect(a, l, q - 1, index);
-        }
-    }
-
-    public int randomPartition(int[] a, int l, int r) {
-        int i = random.nextInt(r - l + 1) + l;
-        swap(a, i, r);
-        return partition(a, l, r);
-    }
-
-    public int partition(int[] a, int l, int r) {
-        int x = a[r], i = l - 1;
-        for (int j = l; j < r; ++j) {
-            if (a[j] <= x) {
-                swap(a, ++i, j);
+    private int partition(int[] nums,int l,int r){
+        int left = l, right = r;
+        if(left == right) return left;
+        swap(nums,left,left + 1 + new Random().nextInt(right - left)); 
+        int temp = nums[left];
+        while(left < right){
+            while(left < right && temp <= nums[right]){
+                right--;
             }
+            nums[left] = nums[right];
+            while(left < right && temp >= nums[left]){
+                left++;
+            }
+            nums[right] = nums[left];            
         }
-        swap(a, i + 1, r);
-        return i + 1;
+        nums[left] = temp;
+        return left;
     }
 
-    public void swap(int[] a, int i, int j) {
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
+    private void swap(int[] nums,int left,int right){
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
     }
 }
