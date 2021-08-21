@@ -1,0 +1,30 @@
+class Solution {
+
+    private int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> list = new ArrayList<Integer>();
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return list;
+        }
+
+        int n = matrix.length * matrix[0].length;
+        int rows = matrix.length, columns = matrix[0].length;
+        boolean[][] visited = new boolean[rows][columns];
+
+        int row = 0, column = 0;
+        int directionIndex = 0;
+        for (int i = 0; i < n; i++) {
+
+            list.add(matrix[row][column]);
+            visited[row][column] = true;
+            int nextRow = row + directions[directionIndex][0], nextColumn = column + directions[directionIndex][1];
+            if (nextRow < 0 || nextRow >= rows || nextColumn < 0 || nextColumn >= columns || visited[nextRow][nextColumn]) {
+                directionIndex = (directionIndex + 1) % 4;
+            }
+            row += directions[directionIndex][0];
+            column += directions[directionIndex][1];
+        }
+        return list;
+    }
+}
