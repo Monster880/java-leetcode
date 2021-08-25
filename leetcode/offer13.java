@@ -3,22 +3,21 @@ class Solution {
         if (k == 0) {
             return 1;
         }
-        boolean[][] vis = new boolean[m][n];
+        boolean[][] visited = new boolean[m][n];
         int ans = 1;
-        vis[0][0] = true;
+        visited[0][0] = true;
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
                 if ((i == 0 && j == 0) || get(i) + get(j) > k) {
                     continue;
                 }
-                // 边界判断
                 if (i - 1 >= 0) {
-                    vis[i][j] |= vis[i - 1][j];
+                    visited[i][j] |= visited[i - 1][j];
                 }
                 if (j - 1 >= 0) {
-                    vis[i][j] |= vis[i][j - 1];
+                    visited[i][j] |= visited[i][j - 1];
                 }
-                ans += vis[i][j] ? 1 : 0;
+                ans += visited[i][j] ? 1 : 0;
             }
         }
         return ans;
