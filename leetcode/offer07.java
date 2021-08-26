@@ -1,24 +1,24 @@
 class Solution {
-    private Map<Integer, Integer> indexMap;
+    private Map<Integer, Integer> map;
 
-    public TreeNode myBuildTree(int[] preorder, int[] inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
-        if (preorder_left > preorder_right) {
+    public TreeNode myBuildTree(int[] preorder, int[] inorder, int preLeft, int preRight, int inLeft, int inRight) {
+        if (preLeft > preRight) {
             return null;
         }
-        int preorder_root = preorder_left;
-        int inorder_root = indexMap.get(preorder[preorder_root]);
-        TreeNode root = new TreeNode(preorder[preorder_root]);
-        int size_left_subtree = inorder_root - inorder_left;
-        root.left = myBuildTree(preorder, inorder, preorder_left + 1, preorder_left + size_left_subtree, inorder_left, inorder_root - 1);
-        root.right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1, inorder_right);
+        int preRoot = preLeft;
+        int inRoot = map.get(preorder[preRoot]);
+        TreeNode root = new TreeNode(preorder[preRoot]);
+        int leftSize = inRoot - inLeft;
+        root.left = myBuildTree(preorder, inorder, preLeft + 1, preLeft + leftSize, inLeft, inRoot - 1);
+        root.right = myBuildTree(preorder, inorder, preLeft + leftSize + 1, preRight, inRoot + 1, inRight);
         return root;
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int n = preorder.length;
-        indexMap = new HashMap<Integer, Integer>();
+        map = new HashMap<Integer, Integer>();
         for (int i = 0; i < n; i++) {
-            indexMap.put(inorder[i], i);
+            map.put(inorder[i], i);
         }
         return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
     }
