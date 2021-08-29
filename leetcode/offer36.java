@@ -27,14 +27,15 @@ class Solution {
         pre.right = head;
         return head;
     }
-    void inOrder(Node root) {
+
+    public void inOrder(Node root){
         if(root == null) return;
         inOrder(root.left);
         root.left = pre;
         if(pre == null){
-            head = root;
+            head =root;
         }else{
-            pre.right = root;
+            pre.right =root;
         }
         pre = root;
         inOrder(root.right);
