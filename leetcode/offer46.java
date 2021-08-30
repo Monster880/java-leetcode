@@ -1,31 +1,30 @@
 class Solution {
-    List<List<Integer>> result = new ArrayList<>();
-    List<Integer> path = new ArrayList<>();
+    List<String> res = new ArrayList<String>();
+    StringBuilder sb = new StringBuilder();
 
-    public List<List<Integer>> permuteUnique(int[] nums) {
-        boolean[] used = new boolean[nums.length];
-        Arrays.fill(used, false);
-        Arrays.sort(nums);
-        backTrack(nums, used);
-        return result;
+    public String[] permutation(String s) {
+        boolean[] visited = new boolean[s.length()];
+        char[] temp = s.toCharArray();
+        Arrays.sort(temp);
+        dfs(temp, visited, 0);
+        return res.toArray(new String[s.length()]);
     }
 
-    private void backTrack(int[] nums, boolean[] used) {
-        if (path.size() == nums.length) {
-            result.add(new ArrayList<>(path));
+    void dfs(char[] temp, boolean[] visited, int depth){
+        if(depth == temp.length){
+            res.add(sb.toString());
             return;
         }
-        for (int i = 0; i < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == false) {
-                continue;
-            }
-            if (used[i] == false) {
-                used[i] = true;
-                path.add(nums[i]);
-                backTrack(nums, used);
-                path.remove(path.size() - 1);
-                used[i] = false;
-            }
+        for(int i = 0; i < temp.length; i++){
+            if(visited[i])  continue;
+            if(i > 0 && temp[i - 1] == temp[i] && !visited[i - 1])  continue;
+            
+            sb.append(temp[i]);
+            visited[i] = true;
+            dfs(temp, visited, depth + 1);
+            visited[i] = false;
+            sb.deleteCharAt(sb.length() - 1);
         }
     }
+
 }
