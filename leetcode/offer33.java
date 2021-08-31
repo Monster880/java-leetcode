@@ -23,6 +23,6 @@ class Solution {
 				return false;
 			}
 		}
-		return verifyPostorder(leftPostorder) && verifyPostorder(rightPostorder) ? true : false;
+		return verifyPostorder(leftPostorder) && verifyPostorder(rightPostorder);
     }
 }
