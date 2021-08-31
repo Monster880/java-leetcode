@@ -5,7 +5,6 @@ class Solution {
 		}
 		int rootVal = postorder[postorder.length-1];
 		int rightBeginIndex = postorder.length - 1;
-		
 		for(int i = 0; i < postorder.length ; i ++) {
 			if(postorder[i] > rootVal) {
 				rightBeginIndex = i;
