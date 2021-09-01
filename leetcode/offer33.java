@@ -1,28 +1,27 @@
 class Solution {
-    public boolean verifyPostorder(int[] postorder) {
-		if(postorder.length <= 1) {
-			return true;
-		}
-		int rootVal = postorder[postorder.length-1];
-		int rightBeginIndex = postorder.length - 1;
-		for(int i = 0; i < postorder.length ; i ++) {
-			if(postorder[i] > rootVal) {
-				rightBeginIndex = i;
-				break;
-			}
-		}
-		int [] leftPostorder = Arrays.copyOfRange(postorder, 0, rightBeginIndex);
-		int [] rightPostorder = Arrays.copyOfRange(postorder, rightBeginIndex, postorder.length-1);
-		for(int i = 0; i < leftPostorder.length ; i ++) {
-			if(leftPostorder[i] > rootVal ) {
-				return false;
-			}
-		}
-		for(int i = 0; i < rightPostorder.length ; i ++) {
-			if(rightPostorder[i] < rootVal) {
-				return false;
-			}
-		}
-		return verifyPostorder(leftPostorder) && verifyPostorder(rightPostorder);
+    public int findUnsortedSubarray(int[] nums) {
+        if (isSorted(nums)) {
+            return 0;
+        }
+        int[] numsSorted = Arrays.copyOfRange(nums, 0, nums.length);
+        Arrays.sort(numsSorted);
+        int left = 0;
+        while (nums[left] == numsSorted[left]) {
+            left++;
+        }
+        int right = nums.length - 1;
+        while (nums[right] == numsSorted[right]) {
+            right--;
+        }
+        return right - left + 1;
+    }
+
+    public boolean isSorted(int[] nums) {
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] < nums[i - 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
