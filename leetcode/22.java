@@ -4,21 +4,20 @@ class Solution {
         backtrack(res, new StringBuilder(), 0, 0, n);
         return res;
     }
-
-    public void backtrack(List<String> res, StringBuilder cur, int open, int close, int max) {
-        if (cur.length() == max * 2) {
+    public void backtrack(List<String> res, StringBuilder cur, int open, int close, int max){
+        if(cur.length() == max * 2){
             res.add(cur.toString());
             return;
         }
-        if (open < max) {
+        if(open < max){
             cur.append('(');
-            backtrack(res, cur, open + 1, close, max);
+            backtrack(res, cur, open+1, close, max);
             cur.deleteCharAt(cur.length() - 1);
         }
-        if (close < open) {
+        if(close < open){
             cur.append(')');
-            backtrack(res, cur, open, close + 1, max);
-            cur.deleteCharAt(cur.length() - 1);
+            backtrack(res, cur, open, close+1, max);
+            cur.deleteCharAt(cur.length() - 1);   
         }
     }
 }
