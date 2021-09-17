@@ -1,46 +1,48 @@
 class Solution {
-    Map<Character, Integer> ori = new HashMap<Character, Integer>();
-    Map<Character, Integer> cnt = new HashMap<Character, Integer>();
+    Map<Character, Integer> temp = new HashMap<>();
+    Map<Character, Integer> map = new HashMap<>();
 
     public String minWindow(String s, String t) {
-        int tLen = t.length();
-        for (int i = 0; i < tLen; i++) {
-            char c = t.charAt(i);
-            ori.put(c, ori.getOrDefault(c, 0) + 1);
-        }
-        int l = 0, r = -1;
-        int len = Integer.MAX_VALUE, ansL = -1, ansR = -1;
         int sLen = s.length();
-        while (r < sLen) {
-            ++r;
-            if (r < sLen && ori.containsKey(s.charAt(r))) {
-                cnt.put(s.charAt(r), cnt.getOrDefault(s.charAt(r), 0) + 1);
+        int tLen = t.length();
+
+        for(int i=0; i<tLen; i++){
+            char ch = t.charAt(i);
+            temp.put(ch, temp.getOrDefault(ch, 0) + 1);
+        }
+        int left = 0, right = -1;
+        int len = Integer.MAX_VALUE, resL = -1, resR = -1;
+
+        while(right < sLen){
+            right++;
+            if(right < sLen && temp.containsKey(s.charAt(right))){
+                map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
             }
-            while (check() && l <= r) {
-                if (r - l + 1 < len) {
-                    len = r - l + 1;
-                    ansL = l;
-                    ansR = l + len;
+            while(check() && left <= right){
+                if(right - left + 1 < len){
+                    len = right - left + 1;
+                    resL = left;
+                    resR = left + len;
                 }
-                if (ori.containsKey(s.charAt(l))) {
-                    cnt.put(s.charAt(l), cnt.getOrDefault(s.charAt(l), 0) - 1);
+                if(temp.containsKey(s.charAt(left))){
+                    map.put(s.charAt(left), map.getOrDefault(s.charAt(left), 0) - 1);
                 }
-                ++l;
+                left++;
             }
         }
-        return ansL == -1 ? "" : s.substring(ansL, ansR);
+        return resL == -1 ? "" : s.substring(resL, resR);
     }
 
-    public boolean check() {
-        Iterator iter = ori.entrySet().iterator(); 
-        while (iter.hasNext()) { 
-            Map.Entry entry = (Map.Entry) iter.next(); 
-            Character key = (Character) entry.getKey(); 
-            Integer val = (Integer) entry.getValue(); 
-            if (cnt.getOrDefault(key, 0) < val) {
+    public boolean check(){
+        Iterator iterator = temp.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Character key = (Character) entry.getKey();
+            Integer value = (Integer) entry.getValue();
+            if(map.getOrDefault(key, 0) < value){
                 return false;
             }
-        } 
+        }
         return true;
     }
 }
