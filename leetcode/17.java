@@ -1,10 +1,10 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
         List<String> combinations = new ArrayList<String>();
-        if (digits.length() == 0) {
+        if(digits.length() == 0){
             return combinations;
         }
-        Map<Character, String> phoneMap = new HashMap<Character, String>() {{
+        Map<Character, String> phoneMap = new HashMap<Character, String>(){{
             put('2', "abc");
             put('3', "def");
             put('4', "ghi");
@@ -18,16 +18,16 @@ class Solution {
         return combinations;
     }
 
-    public void backtrack(List<String> combinations, Map<Character, String> phoneMap, String digits, int index, StringBuffer combination) {
-        if (index == digits.length()) {
+    public void backtrack(List<String> combinations, Map<Character, String> phoneMap, String digits, int index, StringBuffer combination){
+        if(index == digits.length()){
             combinations.add(combination.toString());
-        } else {
+        }else{
             char digit = digits.charAt(index);
             String letters = phoneMap.get(digit);
             int lettersCount = letters.length();
-            for (int i = 0; i < lettersCount; i++) {
+            for(int i=0; i<lettersCount; i++){
                 combination.append(letters.charAt(i));
-                backtrack(combinations, phoneMap, digits, index + 1, combination);
+                backtrack(combinations, phoneMap, digits, index+1, combination);
                 combination.deleteCharAt(index);
             }
         }
