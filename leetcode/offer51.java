@@ -1,16 +1,13 @@
 public class Solution {
     public int reversePairs(int[] nums) {
         int len = nums.length;
-
         if (len < 2) {
             return 0;
         }
-
         int[] copy = new int[len];
         for (int i = 0; i < len; i++) {
             copy[i] = nums[i];
         }
-
         int[] temp = new int[len];
         return reversePairs(copy, 0, len - 1, temp);
     }
@@ -19,15 +16,12 @@ public class Solution {
         if (left == right) {
             return 0;
         }
-
         int mid = left + (right - left) / 2;
         int leftPairs = reversePairs(nums, left, mid, temp);
         int rightPairs = reversePairs(nums, mid + 1, right, temp);
-
         if (nums[mid] <= nums[mid + 1]) {
             return leftPairs + rightPairs;
         }
-
         int crossPairs = mergeAndCount(nums, left, mid, right, temp);
         return leftPairs + rightPairs + crossPairs;
     }
@@ -36,13 +30,10 @@ public class Solution {
         for (int i = left; i <= right; i++) {
             temp[i] = nums[i];
         }
-
         int i = left;
         int j = mid + 1;
-
         int count = 0;
         for (int k = left; k <= right; k++) {
-
             if (i == mid + 1) {
                 nums[k] = temp[j];
                 j++;
