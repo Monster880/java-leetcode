@@ -1,39 +1,38 @@
 class Solution {
     public int longestSubstring(String s, int k) {
-        int ret = 0;
+        int res = 0;
         int n = s.length();
-        for (int t = 1; t <= 26; t++) {
-            int l = 0, r = 0;
-            int[] cnt = new int[26];
-            int tot = 0;
-            int less = 0;
-            while (r < n) {
-                cnt[s.charAt(r) - 'a']++;
-                if (cnt[s.charAt(r) - 'a'] == 1) {
-                    tot++;
-                    less++;
+        for(int i=1; i <= 26; i++){
+            int left = 0, right = 0;
+            int[] temp = new int[26];
+            int total = 0;
+            int charNum = 0;
+            while(right < n){
+                temp[s.charAt(right) - 'a']++;
+                if(temp[s.charAt(right) - 'a'] == 1){
+                    total++;
+                    charNum++;
                 }
-                if (cnt[s.charAt(r) - 'a'] == k) {
-                    less--;
+                if(temp[s.charAt(right) - 'a'] == k){
+                    charNum--;
                 }
-
-                while (tot > t) {
-                    cnt[s.charAt(l) - 'a']--;
-                    if (cnt[s.charAt(l) - 'a'] == k - 1) {
-                        less++;
+                while(total > i){
+                    temp[s.charAt(left) - 'a']--;
+                    if(temp[s.charAt(left) - 'a'] == k -1){
+                        charNum++;
                     }
-                    if (cnt[s.charAt(l) - 'a'] == 0) {
-                        tot--;
-                        less--;
+                    if(temp[s.charAt(left) - 'a'] == 0){
+                        total--;
+                        charNum--;
                     }
-                    l++;
+                    left++;
                 }
-                if (less == 0) {
-                    ret = Math.max(ret, r - l + 1);
+                if(charNum == 0){
+                    res = Math.max(res, right - left + 1);
                 }
-                r++;
+                right++;
             }
         }
-        return ret;
+        return res;
     }
 }
