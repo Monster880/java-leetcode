@@ -15,34 +15,21 @@ class Solution {
             }
         }
 
-        int ret = 0;
-        for (int j = 0; j < n; j++) { // 对于每一列，使用基于柱状图的方法
-            int[] up = new int[m];
-            int[] down = new int[m];
-
-            Deque<Integer> stack = new LinkedList<Integer>();
-            for (int i = 0; i < m; i++) {
-                while (!stack.isEmpty() && left[stack.peek()][j] >= left[i][j]) {
-                    stack.pop();
+        int res = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == '0') {
+                    continue;
                 }
-                up[i] = stack.isEmpty() ? -1 : stack.peek();
-                stack.push(i);
-            }
-            stack.clear();
-            for (int i = m - 1; i >= 0; i--) {
-                while (!stack.isEmpty() && left[stack.peek()][j] >= left[i][j]) {
-                    stack.pop();
+                int width = left[i][j];
+                int area = width;
+                for (int k = i - 1; k >= 0; k--) {
+                    width = Math.min(width, left[k][j]);
+                    area = Math.max(area, (i - k + 1) * width);
                 }
-                down[i] = stack.isEmpty() ? m : stack.peek();
-                stack.push(i);
-            }
-
-            for (int i = 0; i < m; i++) {
-                int height = down[i] - up[i] - 1;
-                int area = height * left[i][j];
-                ret = Math.max(ret, area);
+                res = Math.max(res, area);
             }
         }
-        return ret;
+        return res;
     }
 }
